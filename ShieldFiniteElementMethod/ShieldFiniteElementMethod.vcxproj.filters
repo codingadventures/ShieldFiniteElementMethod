@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>a953e526-6d41-403b-87fe-b8807e2fa642</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\values">
+      <UniqueIdentifier>5e993c71-3d75-4cde-b89e-bc168f87c12c</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{de5fff8e-1855-43af-8ba8-418dbf1c0efb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpu">
+      <UniqueIdentifier>{09c3f943-d35d-44d8-a5c4-02e848adc5de}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="res\values\strings.xml">
+      <Filter>res\values</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\android_native_app_glue.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\AndroidRenderer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Camera.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\InitHeader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Renderer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Timer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Shader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\File.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Mesh.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Texture.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Vertex.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\VertexWeight.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Material.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\kernels.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\simulation.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\octree.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\android_native_app_glue.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\AndroidRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Camera.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Renderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ShieldFiniteElementMethod.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\File.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Texture.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Material.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Timer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\kernels.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\simulation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUBarycentricMapping.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUFixedConstraint.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUMechanicalObject.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUMergedKernels.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUPlaneForceField.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUSphereForceField.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUTetrahedronFEMForceField.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUUniformMass.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\CPUVisualModel.cpp">
+      <Filter>cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\mapping.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\params.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
