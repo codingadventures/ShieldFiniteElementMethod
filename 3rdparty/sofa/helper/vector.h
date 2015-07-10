@@ -159,6 +159,50 @@ namespace sofa
 				return vectorSize==0;
 			}
 
+			void resize ( size_type s,size_type WARP_SIZE=MemoryManager::BSIZE) {
+				if ( s == vectorSize ) return;
+				reserve ( s,WARP_SIZE);
+				if ( s > vectorSize ) {
+					if (sofa::defaulttype::DataTypeInfo<T>::ZeroConstructor ) { // can use memset instead of constructors
+						if (hostIsValid) MemoryManager::memsetHost(hostPointer+vectorSize,0,(s-vectorSize)*sizeof(T));
+
+						for (int d=0;d<MemoryManager::numDevices();d++) {
+							if (isDeviceValid(d)) MemoryManager::memsetDevice(d,MemoryManager::deviceOffset(devicePointer[d],vectorSize), 0, (s-vectorSize)*sizeof(T));
+						}
+					} else {
+						copyToHost();
+						memset(hostPointer+vectorSize,0,(s-vectorSize)*sizeof(T));
+						// Call the constructor for the new elements
+						for ( size_type i = vectorSize; i < s; i++ ) ::new ( hostPointer+i ) T;
+
+						if ( vectorSize == 0 ) { // wait until the transfer is really necessary, as other modifications might follow
+							deviceIsValid = 0;
+						} else {	
+							if (MemoryManager::SUPPORT_GL_BUFFER && bufferObject) mapBuffer();
+
+							for (int d=0;d<MemoryManager::numDevices();d++) {
+								if (!MemoryManager::isNull(devicePointer[d]) &&  isDeviceValid(d) ) {
+									MemoryManager::memcpyHostToDevice(d, MemoryManager::deviceOffset(devicePointer[d], vectorSize), hostPointer+vectorSize, ( s-vectorSize ) *sizeof ( T ) );
+								}
+							}
+						}
+					}
+				} else if (s < vectorSize && !(defaulttype::DataTypeInfo<T>::SimpleCopy)) { // need to call destructors
+					copyToHost();
+					// Call the destructor for the deleted elements
+					for ( size_type i = s; i < vectorSize; i++ ) {
+						hostPointer[i].~T();
+					}
+				}
+				vectorSize = s;
+
+				if ( !vectorSize ) { // special case when the vector is now empty -> host and device are valid
+					deviceIsValid = ALL_DEVICE_VALID;
+					hostIsValid = true;
+				}
+			}
+
+
 			void reserve (size_type s,size_type WARP_SIZE=MemoryManager::BSIZE) {
 				if ( s <= allocSize ) return;
 				allocSize = ( s>2*allocSize ) ?s:2*allocSize;
@@ -221,49 +265,7 @@ namespace sofa
 				deviceIsValid = 0;
 			}
 
-			void resize ( size_type s,size_type WARP_SIZE=MemoryManager::BSIZE) {
-				if ( s == vectorSize ) return;
-				reserve ( s,WARP_SIZE);
-				if ( s > vectorSize ) {
-					if (sofa::defaulttype::DataTypeInfo<T>::ZeroConstructor ) { // can use memset instead of constructors
-						if (hostIsValid) MemoryManager::memsetHost(hostPointer+vectorSize,0,(s-vectorSize)*sizeof(T));
-
-						for (int d=0;d<MemoryManager::numDevices();d++) {
-							if (isDeviceValid(d)) MemoryManager::memsetDevice(d,MemoryManager::deviceOffset(devicePointer[d],vectorSize), 0, (s-vectorSize)*sizeof(T));
-						}
-					} else {
-						copyToHost();
-						memset(hostPointer+vectorSize,0,(s-vectorSize)*sizeof(T));
-						// Call the constructor for the new elements
-						for ( size_type i = vectorSize; i < s; i++ ) ::new ( hostPointer+i ) T;
-
-						if ( vectorSize == 0 ) { // wait until the transfer is really necessary, as other modifications might follow
-							deviceIsValid = 0;
-						} else {	
-							if (MemoryManager::SUPPORT_GL_BUFFER && bufferObject) mapBuffer();
-
-							for (int d=0;d<MemoryManager::numDevices();d++) {
-								if (!MemoryManager::isNull(devicePointer[d]) &&  isDeviceValid(d) ) {
-									MemoryManager::memcpyHostToDevice(d, MemoryManager::deviceOffset(devicePointer[d], vectorSize), hostPointer+vectorSize, ( s-vectorSize ) *sizeof ( T ) );
-								}
-							}
-						}
-					}
-				} else if (s < vectorSize && !(defaulttype::DataTypeInfo<T>::SimpleCopy)) { // need to call destructors
-					copyToHost();
-					// Call the destructor for the deleted elements
-					for ( size_type i = s; i < vectorSize; i++ ) {
-						hostPointer[i].~T();
-					}
-				}
-				vectorSize = s;
-
-				if ( !vectorSize ) { // special case when the vector is now empty -> host and device are valid
-					deviceIsValid = ALL_DEVICE_VALID;
-					hostIsValid = true;
-				}
-			}
-
+			
 			void swap ( vector<T,MemoryManager>& v ) {
 #define VSWAP(type, var) { type t = var; var = v.var; v.var = t; }
 				VSWAP ( size_type, vectorSize );
@@ -652,7 +654,7 @@ namespace sofa
 			}
 			/// resize the vector discarding any old values, without calling constructors or destructors, and without synchronizing the device and host copy
 			void recreate( size_type s,size_type WARP_SIZE=MemoryManager::BSIZE) {
-				resize(s);
+				std::vector<T, std::allocator<T> >::resize(s);
 			}
 		};
 

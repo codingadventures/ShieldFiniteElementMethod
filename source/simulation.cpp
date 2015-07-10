@@ -525,7 +525,7 @@ void computeForce(const SimulationParameters* params, FEMMesh* mesh, TVecDeriv& 
     const TVecCoord& x = mesh->positions;
     const TVecDeriv& v = mesh->velocity;
     TVecDeriv& f = result;
-    //result.recreate(size);
+    result.recreate(size);
 
     // it is no longer necessary to clear the result vector as the addForce
     // kernel from TetrahedronFEMForceField will do an assignement instead of
@@ -560,13 +560,13 @@ void computeForce(const SimulationParameters* params, FEMMesh* mesh, TVecDeriv& 
 
     if (mesh->plane.stiffness != 0)
     {
-        //mesh->planePenetration.recreate(size);
+        mesh->planePenetration.recreate(size);
         DEVICE_METHOD(PlaneForceField3f_addForce)( size, &mesh->plane, mesh->planePenetration.deviceWrite(), result.deviceWrite(), x.deviceRead(), v.deviceRead() );
     }
 
     if (mesh->sphere.stiffness != 0)
     {
-       // mesh->spherePenetration.recreate(size);
+       mesh->spherePenetration.recreate(size);
         DEVICE_METHOD(SphereForceField3f_addForce)( size, &mesh->sphere, mesh->spherePenetration.deviceWrite(), result.deviceWrite(), x.deviceRead(), v.deviceRead() );
     }
 
@@ -588,7 +588,7 @@ void accFromF(const SimulationParameters* params, FEMMesh* mesh, const TVecDeriv
     const unsigned int size = mesh->positions.size();
     const double mass = params->massDensity;
     TVecDeriv& a = mesh->a;
-    //a.recreate(size);
+    a.recreate(size);
     DEVICE_METHOD(UniformMass3f_addMDx)( size, mass, a.deviceWrite(), f.deviceRead() );
 }
 
@@ -707,10 +707,10 @@ void linearSolver_ConjugateGradient(const SimulationParameters* params, FEMMesh*
     TVecDeriv& q = mesh->q;
     TVecDeriv& d = mesh->d;
     TVecDeriv& r = mesh->r;
-	/*  a.recreate(size);
+	a.recreate(size);
 	q.recreate(size);
 	d.recreate(size);
-	r.recreate(size);*/
+	r.recreate(size);
 
     // for parallel reductions (vDot)
 #ifdef PARALLEL_REDUCTION

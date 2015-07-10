@@ -327,9 +327,10 @@ void SurfaceMesh::updatePositions(FEMMesh* inputMesh)
 
 void SurfaceMesh::updateNormals()
 {
-    //normals.recreate(positions.size());
+	size_t positionSize = positions.size();
+    normals.recreate(positionSize);
     if (computeTangents)
-       // tangents.recreate(positions.size());
+        tangents.recreate(positions.size());
 #ifdef SOFA_DEVICE_CUDA
     if (!velems.empty())
     { // use GPU
