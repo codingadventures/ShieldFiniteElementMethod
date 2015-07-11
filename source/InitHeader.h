@@ -11,6 +11,8 @@
 #include "ShaderManager.h"
 #include "TransferFunction.h"*/
 
+#include "simulation.h"
+#include <sofa/helper/system/thread/CTime.h>
 #include "Timer.h"
 //#include <omp.h>
 //
@@ -30,9 +32,43 @@ Renderer *renderer;
 float currTime, lastTime;
 Timer timer;
 
+
+int main_load()
+{
+	vector<string> render_filenames;
+
+	render_filenames.push_back("raptor-skin.obj");
+	render_filenames.push_back("raptor-misc.obj");
+
+
+	LOGI("main_load - Load meshes  File: %s Line: %d", __FILE__, __LINE__);
+
+	simulation_load_fem_mesh("raptor-8418.mesh");
+
+	for (unsigned int a = 0; a < render_filenames.size(); ++a)
+		simulation_load_render_mesh(render_filenames[a].c_str());
+
+	/*if (reorder)
+	simulation_reorder_fem_mesh();*/
+	LOGI("main_load - Init simulation  File: %s Line: %d", __FILE__, __LINE__);
+
+	if (!simulation_init())
+		return 1;
+	return 0;
+}
+
 //everything that must access the opengl state must come after the window has been initialized (which come as an event in the command queue in the case of android)
 void initAppParams()
 {
+
+
+	if (!simulation_preload())
+		return;
+
+
+	if (main_load()) return;
+
+
 	//currVolume = 0;
 	//volumePtr = &volume1;
 	//volumetfsPtr = &volume1tfs;
@@ -108,23 +144,23 @@ void updateCallback(unsigned int currRenderType, unsigned int newTransferFn, uns
 {
 	/*if(newVolume != currVolume)
 	{
-		currVolume = newVolume;
-		switch(currVolume)
-		{
-		case 0: volumePtr = &volume1; volumetfsPtr = &volume1tfs; break;
-		case 1: volumePtr = &volume2; volumetfsPtr = &volume2tfs; break;
-		}
-#if CUDA_ENABLED
-		renderer->loadCudaVolume(*volumePtr, volumetfsPtr->at(currTransferFn));
-#endif
+	currVolume = newVolume;
+	switch(currVolume)
+	{
+	case 0: volumePtr = &volume1; volumetfsPtr = &volume1tfs; break;
+	case 1: volumePtr = &volume2; volumetfsPtr = &volume2tfs; break;
+	}
+	#if CUDA_ENABLED
+	renderer->loadCudaVolume(*volumePtr, volumetfsPtr->at(currTransferFn));
+	#endif
 	}
 
 	if(newTransferFn != currTransferFn)
 	{
-		currTransferFn = newTransferFn;
-#if CUDA_ENABLED
-		renderer->loadCudaVolume(*volumePtr, volumetfsPtr->at(currTransferFn));
-#endif
+	currTransferFn = newTransferFn;
+	#if CUDA_ENABLED
+	renderer->loadCudaVolume(*volumePtr, volumetfsPtr->at(currTransferFn));
+	#endif
 	}
 
 	float currTime = timer.m_timer->getTime();
@@ -140,19 +176,19 @@ void updateCallback(unsigned int currRenderType, unsigned int newTransferFn, uns
 	switch (currRenderType)
 	{
 	case RenderType::RAYTRACE_SHADER:
-		renderer->renderRaycastVR(raycastVRShader, cubeMesh, *volumePtr, MAX_RAY_STEPS, RAY_STEP_SIZE_MODEL_SPACE, GRADIENT_STEP_SIZE, LIGHT_POS, (volumetfsPtr->at(currTransferFn)));
-		break;
+	renderer->renderRaycastVR(raycastVRShader, cubeMesh, *volumePtr, MAX_RAY_STEPS, RAY_STEP_SIZE_MODEL_SPACE, GRADIENT_STEP_SIZE, LIGHT_POS, (volumetfsPtr->at(currTransferFn)));
+	break;
 	case RenderType::TEXTURE_BASED:
-		renderer->renderTextureBasedVR(textureBasedVRShader, cubeMesh, *volumePtr, (volumetfsPtr->at(currTransferFn)));
-		break;
+	renderer->renderTextureBasedVR(textureBasedVRShader, cubeMesh, *volumePtr, (volumetfsPtr->at(currTransferFn)));
+	break;
 	case RenderType::TEXTURE_BASED_MT:
-		renderer->renderTextureBasedVRMT(textureBasedVRShader, cubeMesh, *volumePtr, (volumetfsPtr->at(currTransferFn)));
-		break;
-#ifdef CUDA_ENABLED
+	renderer->renderTextureBasedVRMT(textureBasedVRShader, cubeMesh, *volumePtr, (volumetfsPtr->at(currTransferFn)));
+	break;
+	#ifdef CUDA_ENABLED
 	case RenderType::RAYTRACE_CUDA:
-		renderer->renderRaycastVRCUDA(planeShader, planeMesh, *volumePtr, MAX_RAY_STEPS, RAY_STEP_SIZE_MODEL_SPACE, GRADIENT_STEP_SIZE);
-		break;
-#endif*/
+	renderer->renderRaycastVRCUDA(planeShader, planeMesh, *volumePtr, MAX_RAY_STEPS, RAY_STEP_SIZE_MODEL_SPACE, GRADIENT_STEP_SIZE);
+	break;
+	#endif*/
 	//}
 	//renderer->renderBasic(basicShader, cubeMesh, renderer->m_camera.GetProjectionMatrix() * renderer->m_camera.GetViewMatrix() * cubeMesh.transform.getMatrix(), true);
 	//renderer->drawCrosshair(glm::vec4(0,0,1,1));

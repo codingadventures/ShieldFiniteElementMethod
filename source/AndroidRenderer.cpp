@@ -20,8 +20,6 @@ void AndroidRenderer::init(android_app *state, void (*applicationInitCallback)(v
 	m_App->userData = this;
 	m_App->onAppCmd = engine_handle_cmd;
 	m_App->onInputEvent = engine_handle_input;
-
-
 }
 
 
@@ -49,7 +47,7 @@ int AndroidRenderer::initEGL()
 
 
 	// initialize OpenGL ES and EGL
-		EGLint w, h, dummy, format;
+	EGLint w, h, dummy, format;
 	EGLint numConfigs;
 	EGLConfig config;
 	EGLSurface surface;
@@ -61,32 +59,32 @@ int AndroidRenderer::initEGL()
 	eglInitialize(display, &major, &minor);
 	LOGI("EGL version %d.%d\n", major, minor);
 
-     /*
-     * Here specify the attributes of the desired configuration.
-     * Below, we select an EGLConfig with at least 8 bits per color
-     * component compatible with on-screen windows
-     */
-    const EGLint attribs[] = { EGL_RENDERABLE_TYPE,
-            EGL_OPENGL_ES2_BIT, 
-            EGL_SURFACE_TYPE, EGL_WINDOW_BIT, EGL_BLUE_SIZE, 8, EGL_GREEN_SIZE, 8,
-            EGL_RED_SIZE, 8, EGL_DEPTH_SIZE, 24, EGL_NONE };
+	/*
+	* Here specify the attributes of the desired configuration.
+	* Below, we select an EGLConfig with at least 8 bits per color
+	* component compatible with on-screen windows
+	*/
+	const EGLint attribs[] = { EGL_RENDERABLE_TYPE,
+		EGL_OPENGL_ES2_BIT, 
+		EGL_SURFACE_TYPE, EGL_WINDOW_BIT, EGL_BLUE_SIZE, 8, EGL_GREEN_SIZE, 8,
+		EGL_RED_SIZE, 8, EGL_DEPTH_SIZE, 24, EGL_NONE };
 
-    EGLint num_configs;
-    eglChooseConfig( display, attribs, &config, 1, &num_configs );
-    if( !num_configs )
-    {
-        //Fall back to 16bit depth buffer
-        const EGLint attribs[] = { EGL_RENDERABLE_TYPE,
-                EGL_OPENGL_ES2_BIT,
-                EGL_SURFACE_TYPE, EGL_WINDOW_BIT, EGL_BLUE_SIZE, 8, EGL_GREEN_SIZE, 8,
-                EGL_RED_SIZE, 8, EGL_DEPTH_SIZE, 16, EGL_NONE };
-        eglChooseConfig( display, attribs, &config, 1, &num_configs );
-    }
-    if( !num_configs )
-    {
-        LOGI( "Unable to retrieve EGL config" );
-        return false;
-    }
+	EGLint num_configs;
+	eglChooseConfig( display, attribs, &config, 1, &num_configs );
+	if( !num_configs )
+	{
+		//Fall back to 16bit depth buffer
+		const EGLint attribs[] = { EGL_RENDERABLE_TYPE,
+			EGL_OPENGL_ES2_BIT,
+			EGL_SURFACE_TYPE, EGL_WINDOW_BIT, EGL_BLUE_SIZE, 8, EGL_GREEN_SIZE, 8,
+			EGL_RED_SIZE, 8, EGL_DEPTH_SIZE, 16, EGL_NONE };
+		eglChooseConfig( display, attribs, &config, 1, &num_configs );
+	}
+	if( !num_configs )
+	{
+		LOGI( "Unable to retrieve EGL config" );
+		return false;
+	}
 
 	eglChooseConfig(display, attribs, &config, 1, &numConfigs);
 
@@ -221,7 +219,7 @@ void AndroidRenderer::setAssetManager()
 	LOGI("Setting current working directory to absolute path.");
 
 	chdir(app_dir);
-	
+
 	env->ReleaseStringUTFChars(jpath, app_dir);
 	// Pre-extract assets, to avoid Android-specific file opening
 	AAssetManager* mgr = m_App->activity->assetManager;
@@ -246,7 +244,7 @@ void AndroidRenderer::setAssetManager()
 
 void AndroidRenderer::printGLContextInfo()
 {
-	
+
 	LOGI("--OpenGL Context Information---");
 	const char* str = (const char*) glGetString( GL_VERSION );
 	LOGI("GL_VERSION : %s\n",str);
@@ -353,6 +351,9 @@ int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 
 void AndroidRenderer::mainLoop()
 {
+	 
+
+
 	while (1) {
 		// Read all pending events.
 		int ident;

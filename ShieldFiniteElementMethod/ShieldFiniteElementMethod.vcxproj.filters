@@ -140,5 +140,8 @@
     <ClCompile Include="..\source\params.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\3rdparty\sofa\helper\system\thread\CTime.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

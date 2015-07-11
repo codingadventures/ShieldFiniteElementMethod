@@ -37,6 +37,7 @@
     <ClInclude Include="..\source\VertexWeight.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\3rdparty\sofa\helper\system\thread\CTime.cpp" />
     <ClCompile Include="..\source\AndroidRenderer.cpp" />
     <ClCompile Include="..\source\android_native_app_glue.c" />
     <ClCompile Include="..\source\Camera.cpp" />

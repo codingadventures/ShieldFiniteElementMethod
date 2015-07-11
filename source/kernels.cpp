@@ -74,6 +74,7 @@ bool kernels_init()
 #if defined(VERSION)
     std::cout << "V" << VERSION << " ";
 #endif
-    std::cout << device_name << " (" << sizeof(void*)*8 << " bits)" << std::endl;
+	LOGI( device_name.c_str() , " (" , sizeof(void*)*8 , " bits)");
+    
     return true;
 }

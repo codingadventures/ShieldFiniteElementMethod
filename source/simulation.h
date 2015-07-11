@@ -4,6 +4,7 @@
 #include <sofa/defaulttype/Vec.h>
 #include <sofa/defaulttype/Mat.h>
 #include <sofa/helper/vector.h>
+#include "common.h"
 
 #if defined(SOFA_DEVICE_CPU)
 #define SOFA_DEVICE "CPU"
