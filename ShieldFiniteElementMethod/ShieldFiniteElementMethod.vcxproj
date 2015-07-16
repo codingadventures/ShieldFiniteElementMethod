@@ -18,48 +18,52 @@
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\AndroidRenderer.h" />
-    <ClInclude Include="..\source\android_native_app_glue.h" />
-    <ClInclude Include="..\source\Camera.h" />
-    <ClInclude Include="..\source\common.h" />
-    <ClInclude Include="..\source\File.h" />
-    <ClInclude Include="..\source\InitHeader.h" />
-    <ClInclude Include="..\source\kernels.h" />
-    <ClInclude Include="..\source\Material.h" />
-    <ClInclude Include="..\source\Mesh.h" />
-    <ClInclude Include="..\source\octree.h" />
-    <ClInclude Include="..\source\Renderer.h" />
-    <ClInclude Include="..\source\Shader.h" />
-    <ClInclude Include="..\source\simulation.h" />
-    <ClInclude Include="..\source\Texture.h" />
-    <ClInclude Include="..\source\Timer.h" />
-    <ClInclude Include="..\source\Vertex.h" />
-    <ClInclude Include="..\source\VertexWeight.h" />
+    <ClInclude Include="source\AbstractController.h" />
+    <ClInclude Include="source\android_native_app_glue.h" />
+    <ClInclude Include="source\Camera.h" />
+    <ClInclude Include="source\common.h" />
+    <ClInclude Include="source\FemController.h" />
+    <ClInclude Include="source\FEMMesh.h" />
+    <ClInclude Include="source\GPU.h" />
+    <ClInclude Include="source\Helper.h" />
+    <ClInclude Include="source\kernels.h" />
+    <ClInclude Include="source\Material.h" />
+    <ClInclude Include="source\MecanicalMatrix.h" />
+    <ClInclude Include="source\Mesh.h" />
+    <ClInclude Include="source\Model.h" />
+    <ClInclude Include="source\octree.h" />
+    <ClInclude Include="source\Shader.h" />
+    <ClInclude Include="source\simulation.h" />
+    <ClInclude Include="source\SimulationParameters.h" />
+    <ClInclude Include="source\Texture.h" />
+    <ClInclude Include="source\Timer.h" />
+    <ClInclude Include="source\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\3rdparty\sofa\helper\system\thread\CTime.cpp" />
-    <ClCompile Include="..\source\AndroidRenderer.cpp" />
-    <ClCompile Include="..\source\android_native_app_glue.c" />
-    <ClCompile Include="..\source\Camera.cpp" />
-    <ClCompile Include="..\source\CPUBarycentricMapping.cpp" />
-    <ClCompile Include="..\source\CPUFixedConstraint.cpp" />
-    <ClCompile Include="..\source\CPUMechanicalObject.cpp" />
-    <ClCompile Include="..\source\CPUMergedKernels.cpp" />
-    <ClCompile Include="..\source\CPUPlaneForceField.cpp" />
-    <ClCompile Include="..\source\CPUSphereForceField.cpp" />
-    <ClCompile Include="..\source\CPUTetrahedronFEMForceField.cpp" />
-    <ClCompile Include="..\source\CPUUniformMass.cpp" />
-    <ClCompile Include="..\source\CPUVisualModel.cpp" />
-    <ClCompile Include="..\source\File.cpp" />
-    <ClCompile Include="..\source\kernels.cpp" />
-    <ClCompile Include="..\source\mapping.cpp" />
-    <ClCompile Include="..\source\Material.cpp" />
-    <ClCompile Include="..\source\params.cpp" />
-    <ClCompile Include="..\source\Renderer.cpp" />
-    <ClCompile Include="..\source\ShieldFiniteElementMethod.cpp" />
-    <ClCompile Include="..\source\simulation.cpp" />
-    <ClCompile Include="..\source\Texture.cpp" />
-    <ClCompile Include="..\source\Timer.cpp" />
+    <ClCompile Include="source\AbstractController.cpp" />
+    <ClCompile Include="source\android_native_app_glue.c" />
+    <ClCompile Include="source\Camera.cpp" />
+    <ClCompile Include="source\cpu\CPUBarycentricMapping.cpp" />
+    <ClCompile Include="source\cpu\CPUFixedConstraint.cpp" />
+    <ClCompile Include="source\cpu\CPUMechanicalObject.cpp" />
+    <ClCompile Include="source\cpu\CPUMergedKernels.cpp" />
+    <ClCompile Include="source\cpu\CPUPlaneForceField.cpp" />
+    <ClCompile Include="source\cpu\CPUSphereForceField.cpp" />
+    <ClCompile Include="source\cpu\CPUTetrahedronFEMForceField.cpp" />
+    <ClCompile Include="source\cpu\CPUUniformMass.cpp" />
+    <ClCompile Include="source\cpu\CPUVisualModel.cpp" />
+    <ClCompile Include="source\FemController.cpp" />
+    <ClCompile Include="source\FEMMesh.cpp" />
+    <ClCompile Include="source\kernels.cpp" />
+    <ClCompile Include="source\Material.cpp" />
+    <ClCompile Include="source\Mesh.cpp" />
+    <ClCompile Include="source\Model.cpp" />
+    <ClCompile Include="source\Shader.cpp" />
+    <ClCompile Include="source\ShieldFiniteElementMethod.cpp" />
+    <ClCompile Include="source\Simulation.cpp" />
+    <ClCompile Include="source\SimulationParameters.cpp" />
+    <ClCompile Include="source\Texture.cpp" />
+    <ClCompile Include="source\Timer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F9181440-0794-4248-8CD2-AE3B769D44AA}</ProjectGuid>
@@ -85,11 +89,11 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID_APP;GLEW_NO_GLU;SOFA_DEVICE_CPU</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\3rdparty\glm;$(SolutionDir)\3rdparty\glew;$(SolutionDir)\3rdparty\png;$(SolutionDir)\3rdparty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\3rdparty\glm;$(ProjectDir)\3rdparty\glew;$(ProjectDir)\3rdparty\png;$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\cudaHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <GccExceptionHandling>true</GccExceptionHandling>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv3;stdc++;png;z;</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv3;stdc++;png;z;assimp;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">

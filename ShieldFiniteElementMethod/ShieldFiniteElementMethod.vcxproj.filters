@@ -10,8 +10,53 @@
     <Filter Include="src">
       <UniqueIdentifier>{de5fff8e-1855-43af-8ba8-418dbf1c0efb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cpu">
+    <Filter Include="Headers">
+      <UniqueIdentifier>{9dfa2ea6-50cb-4a7e-a137-eff06cbbd770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Simulation">
+      <UniqueIdentifier>{91d3c734-017a-40b8-89f7-bedfd7249e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Shaders">
+      <UniqueIdentifier>{3b8d1041-e78d-4672-9e32-83b06cf60d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Rendering">
+      <UniqueIdentifier>{55569c96-de9f-4467-a8b2-96805fc86758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Android">
+      <UniqueIdentifier>{9210b301-30fb-482b-b85b-e11a2efd6b1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Android">
+      <UniqueIdentifier>{c191ece0-2927-4198-ace4-6267d28f77aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering">
+      <UniqueIdentifier>{f70d530e-6bcf-48e5-b351-2df43f960608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Controllers">
+      <UniqueIdentifier>{c8cbaec7-1836-468a-aa05-2ac77c020751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Controllers">
       <UniqueIdentifier>{09c3f943-d35d-44d8-a5c4-02e848adc5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Shaders">
+      <UniqueIdentifier>{ba9c816e-b1d0-4ba8-8586-296378c08764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Simulation">
+      <UniqueIdentifier>{4a6d2899-3965-4916-a96a-a7951609baa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Timer">
+      <UniqueIdentifier>{f794eace-8a49-4660-ba49-5f786b4ca3d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Timer">
+      <UniqueIdentifier>{50ad0809-1e2d-445f-8870-39ba18f20a88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPU">
+      <UniqueIdentifier>{2d3e74aa-2e89-456d-9fe5-0e4457dff657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Camera">
+      <UniqueIdentifier>{fd448896-96d3-4d69-b740-215057fd5342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Camera">
+      <UniqueIdentifier>{be93604a-dbae-4a59-a92c-533782456bbb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,127 +66,137 @@
     <AndroidBuild Include="AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\android_native_app_glue.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\AbstractController.h">
+      <Filter>Headers\Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\AndroidRenderer.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\android_native_app_glue.h">
+      <Filter>Headers\Android</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Camera.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\common.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\common.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\FemController.h">
+      <Filter>Headers\Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\InitHeader.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\simulation.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Renderer.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\Mesh.h">
+      <Filter>Headers\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Timer.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\Model.h">
+      <Filter>Headers\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Shader.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\Shader.h">
+      <Filter>Headers\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\File.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\SimulationParameters.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Mesh.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\MecanicalMatrix.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Texture.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\kernels.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Vertex.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\GPU.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\VertexWeight.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\octree.h">
+      <Filter>Headers\Simulation</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Material.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\Texture.h">
+      <Filter>Headers\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\kernels.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\Vertex.h">
+      <Filter>Headers\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\simulation.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\Material.h">
+      <Filter>Headers\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\octree.h">
-      <Filter>src</Filter>
+    <ClInclude Include="source\FEMMesh.h">
+      <Filter>Headers\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Helper.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Timer.h">
+      <Filter>Headers\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Camera.h">
+      <Filter>Headers\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\android_native_app_glue.c">
-      <Filter>src</Filter>
+    <ClCompile Include="source\ShieldFiniteElementMethod.cpp" />
+    <ClCompile Include="source\android_native_app_glue.c">
+      <Filter>src\Android</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\AndroidRenderer.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\AbstractController.cpp">
+      <Filter>src\Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Camera.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\FemController.cpp">
+      <Filter>src\Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Renderer.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Shader.cpp">
+      <Filter>src\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\ShieldFiniteElementMethod.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Simulation.cpp">
+      <Filter>src\Simulation</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\File.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>src\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Texture.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Timer.cpp">
+      <Filter>src\Timer</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Material.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Model.cpp">
+      <Filter>src\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Timer.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Mesh.cpp">
+      <Filter>src\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\kernels.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Material.cpp">
+      <Filter>src\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\simulation.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\cpu\CPUBarycentricMapping.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUBarycentricMapping.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUFixedConstraint.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUFixedConstraint.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUMechanicalObject.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUMechanicalObject.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUMergedKernels.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUMergedKernels.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUPlaneForceField.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUPlaneForceField.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUSphereForceField.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUSphereForceField.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUTetrahedronFEMForceField.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUTetrahedronFEMForceField.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUUniformMass.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUUniformMass.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\cpu\CPUVisualModel.cpp">
+      <Filter>src\CPU</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\CPUVisualModel.cpp">
-      <Filter>cpu</Filter>
+    <ClCompile Include="source\SimulationParameters.cpp">
+      <Filter>src\Simulation</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\mapping.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\Camera.cpp">
+      <Filter>src\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\params.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\kernels.cpp">
+      <Filter>src\Simulation</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdparty\sofa\helper\system\thread\CTime.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="source\FEMMesh.cpp">
+      <Filter>src\Simulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
