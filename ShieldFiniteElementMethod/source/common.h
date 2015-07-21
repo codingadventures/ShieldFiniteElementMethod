@@ -50,8 +50,8 @@
 
 #pragma region [ MODELS ]
 
-#define RAPTOR_MODEL "models\\raptor.obj"
-#define RAPTOR_NETGEN_MESH "models\\raptor-8418.mesh"
+#define RAPTOR_MODEL "raptor.obj"
+#define RAPTOR_NETGEN_MESH "raptor-8418.mesh"
 
 #pragma endregion [ MODELS ]
 

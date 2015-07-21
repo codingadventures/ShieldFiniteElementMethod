@@ -24,6 +24,7 @@ namespace Controller
 		m_App->userData = this;
 		m_App->onAppCmd = engine_handle_cmd;
 		m_App->onInputEvent = engine_handle_input;
+		d_camera = new Cam::Camera();
 	}
 
 	/*void AbstractController::calculateFps( )
@@ -372,7 +373,6 @@ namespace Controller
 			if (engine->m_App->window != NULL) {
 				engine->initEGL();
 				engine->printGLContextInfo();
-				engine->InitParams();
 			}
 			engine->m_animating = 1;
 			break;

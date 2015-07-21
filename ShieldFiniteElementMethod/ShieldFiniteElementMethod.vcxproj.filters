@@ -58,6 +58,9 @@
     <Filter Include="src\Camera">
       <UniqueIdentifier>{be93604a-dbae-4a59-a92c-533782456bbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\JavaLoader">
+      <UniqueIdentifier>{d220f535-999f-4e27-8b2e-5a7301aba5d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -198,5 +201,13 @@
     <ClCompile Include="source\FEMMesh.cpp">
       <Filter>src\Simulation</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <JCompile Include="src\com\shield\fem\Loader.java">
+      <Filter>src\JavaLoader</Filter>
+    </JCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jni\libassimp.so" />
   </ItemGroup>
 </Project>

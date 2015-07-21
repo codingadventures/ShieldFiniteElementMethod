@@ -40,7 +40,7 @@ namespace Controller
 	
 	void FemController::InitParams()
 	{
-		this->d_camera->Position = glm::vec3(0.0f,5.0f,0.0f);
+		this->d_camera->Position = glm::vec3(0.0f,5.0f,-30.0f);
 		d_camera->CameraType = FREE_FLY;
 		d_camera->MovementSpeed = 0.5f;
 		d_camera->SetTarget(glm::vec3(0,0,0)); 

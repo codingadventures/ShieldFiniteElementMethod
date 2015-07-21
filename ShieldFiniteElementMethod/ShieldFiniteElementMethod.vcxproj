@@ -14,7 +14,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </AndroidBuild>
     <AndroidBuild Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +67,12 @@
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Timer.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <JCompile Include="src\com\shield\fem\Loader.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jni\libassimp.so" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F9181440-0794-4248-8CD2-AE3B769D44AA}</ProjectGuid>
     <RootNamespace>ShieldFiniteElementMethod</RootNamespace>
@@ -76,6 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-19</AndroidTargetAPI>
+    <AndroidMinAPI>android-19</AndroidMinAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -83,6 +92,9 @@
   <PropertyGroup Label="UserMacros">
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
@@ -95,15 +107,28 @@
     <Link>
       <AdditionalDependencies>android;EGL;GLESv3;stdc++;png;z;assimp;</AdditionalDependencies>
     </Link>
+    <AntBuild>
+      <NativeLibDirectories>$(ProjectDir)\lib;%(NativeLibDirectories)</NativeLibDirectories>
+    </AntBuild>
+    <AntBuild>
+      <NativeLibDependencies>libassimp</NativeLibDependencies>
+    </AntBuild>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID_APP;GLEW_NO_GLU</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID_APP;GLEW_NO_GLU;SOFA_DEVICE_CPU</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\3rdparty\glm;$(ProjectDir)\3rdparty\glew;$(ProjectDir)\3rdparty\png;$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\cudaHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GccExceptionHandling>true</GccExceptionHandling>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv3;stdc++;png;z;</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv3;stdc++;png;z;assimp;</AdditionalDependencies>
     </Link>
+    <AntBuild>
+      <NativeLibDirectories>$(ProjectDir)\lib;%(NativeLibDirectories)</NativeLibDirectories>
+      <NativeLibDependencies>libassimp</NativeLibDependencies>
+      <SecurePropertiesLocation>C:\Users\Giovanni\Documents\GitHub\ShieldFiniteElementMethod\ShieldFiniteElementMethod\secure_properties.xml</SecurePropertiesLocation>
+    </AntBuild>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

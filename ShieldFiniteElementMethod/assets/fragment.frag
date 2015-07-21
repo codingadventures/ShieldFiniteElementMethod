@@ -1,4 +1,5 @@
-#version 330 core
+#version 310 es
+precision highp float;
  
 vec3 calculate_diffuse_component_material_texture(vec3 normal, vec3 light_direction, vec2 tex_coord);
 

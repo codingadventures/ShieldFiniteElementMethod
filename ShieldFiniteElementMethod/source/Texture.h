@@ -2,6 +2,7 @@
 #define Texture_h__
 
 #include <string>
+#include "png.h"
 
 enum TextureType{ 
 	TextureType_DIFFUSE,

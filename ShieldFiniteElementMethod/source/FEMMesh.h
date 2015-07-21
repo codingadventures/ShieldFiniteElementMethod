@@ -10,7 +10,7 @@
 #include <iostream>
 #include "SimulationParameters.h"
 #include <mesh/write_mesh_obj.h>
-
+#include "common.h"
 struct FEMMesh
 {
 	std::string filename;

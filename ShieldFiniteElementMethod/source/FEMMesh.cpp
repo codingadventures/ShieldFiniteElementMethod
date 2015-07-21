@@ -9,7 +9,7 @@ void FEMMesh::reorder()
 		sort_coord = 1;
 	if (bbox[1][2]-bbox[0][2] > bbox[1][sort_coord]-bbox[0][sort_coord])
 		sort_coord = 2;
-	std::cout << "Reordering particles based on " << (char)('X'+sort_coord) << std::endl;
+	LOGI("Reordering particles based on %s",(char)('X'+sort_coord));
 	std::vector< std::pair<TReal,int> > sortp;
 	sortp.resize(positions.size());
 	for (unsigned int i=0;i<positions.size();++i)
@@ -31,7 +31,7 @@ void FEMMesh::reorder()
 		for (unsigned int j=0;j<triangles[i].size();++j)
 			triangles[i][j] = old2newpos[triangles[i][j]];
 
-	std::cout << "Reordering tetrahedra based on connected particles" << std::endl;
+	LOGI( "Reordering tetrahedra based on connected particles" );
 	std::vector< std::pair<int,int> > sortt;
 	sortt.resize(tetrahedra.size());
 	for (unsigned int i=0;i<tetrahedra.size();++i)
@@ -42,7 +42,7 @@ void FEMMesh::reorder()
 	for (unsigned int i=0;i<tetrahedra.size();++i)
 		newtetra[i] = tetrahedra[sortt[i].second];
 	tetrahedra.swap(newtetra);
-	std::cout << "Mesh reordering done" << std::endl;
+	LOGI("Mesh reordering done" );
 }
 
 bool FEMMesh::isFixedParticle(int index) const

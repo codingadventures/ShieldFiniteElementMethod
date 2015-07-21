@@ -73,7 +73,7 @@ void Rendering::Mesh::init(FEMMesh* inputMesh)
 
 	if (inputMesh)
 	{
-		std::cout << "Creating mapping between simulation mesh \"" << inputMesh->filename << "\" and surface mesh \" "  << std::endl;
+		LOGI("Creating mapping between simulation mesh \"%s\" and surface mesh" ,inputMesh->filename.c_str());
 		static std::string input_filename;
 		static sofa::helper::vector<Mat3x3d> bases;
 		static sofa::helper::vector<Vec3d> centers;
@@ -90,7 +90,7 @@ void Rendering::Mesh::init(FEMMesh* inputMesh)
 			bases.resize(tetras.size());
 			centers.resize(tetras.size());
 			bbox.resize(tetras.size());
-			std::cout << "  Preparing tetrahedra" << std::endl;
+			LOGI("   Preparing tetrahedra");
 			for (unsigned int t=0; t<tetras.size(); ++t)
 			{
 				Mat3x3d m, mt;
@@ -102,10 +102,10 @@ void Rendering::Mesh::init(FEMMesh* inputMesh)
 				centers[t] = (in[tetras[t][0]]+in[tetras[t][1]]+in[tetras[t][2]]+in[tetras[t][3]])*0.25;
 				bbox[t].add(tetras[t].begin(), tetras[t].end(), in);
 			}
-			std::cout << "  Building octree" << std::endl;
+			LOGI("  Building octree");
 			octree.init(bbox,8,8);
 		}
-		std::cout << "  Processing vertices" << std::endl;
+		LOGI( "  Processing vertices" );
 		int outside = 0;
 		sofa::helper::vector<Octree<Vec3d>*> cells;
 		for (unsigned int i=0;i<out.size();i++)
@@ -179,7 +179,7 @@ void Rendering::Mesh::init(FEMMesh* inputMesh)
 				d_map_i[i][3] = tetras[index][3]; d_map_f[i][3] = (float)(coefs[2]);
 			}
 		}
-		std::cout << "Mapping done: " << outside << " / " << out.size() << " vertices outside of simulation mesh" << std::endl;
+		LOGI( "Mapping done: %d - vertices outside of simulation mesh: %d", outside , out.size() );
 	}
 }
 

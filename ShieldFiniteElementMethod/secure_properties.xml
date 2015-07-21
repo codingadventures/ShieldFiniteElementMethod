@@ -1,0 +1,6 @@
+<project name="secure_properties">
+  <property name="key.store" value="C:\Users\Giovanni\Documents\GitHub\ShieldFiniteElementMethod\ShieldFiniteElementMethod\key" />
+  <property name="key.store.password" value="cash21_98" />
+  <property name="key.alias" value="ShieldFem" />
+  <property name="key.alias.password" value="cash21_98" />
+</project>
