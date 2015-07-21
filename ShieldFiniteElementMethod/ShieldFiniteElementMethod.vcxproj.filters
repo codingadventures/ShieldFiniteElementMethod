@@ -126,8 +126,17 @@
     <ClInclude Include="source\Timer.h">
       <Filter>Headers\Timer</Filter>
     </ClInclude>
-    <ClInclude Include="source\Camera.h">
+    <ClInclude Include="source\gestureDetector.h">
       <Filter>Headers\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\interpolator.h">
+      <Filter>Headers\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tapCamera.h">
+      <Filter>Headers\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\perfMonitor.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -192,22 +201,28 @@
     <ClCompile Include="source\SimulationParameters.cpp">
       <Filter>src\Simulation</Filter>
     </ClCompile>
-    <ClCompile Include="source\Camera.cpp">
-      <Filter>src\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="source\kernels.cpp">
       <Filter>src\Simulation</Filter>
     </ClCompile>
     <ClCompile Include="source\FEMMesh.cpp">
       <Filter>src\Simulation</Filter>
     </ClCompile>
+    <ClCompile Include="source\gestureDetector.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\interpolator.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tapCamera.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\perfMonitor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <JCompile Include="src\com\shield\fem\Loader.java">
       <Filter>src\JavaLoader</Filter>
     </JCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="jni\libassimp.so" />
   </ItemGroup>
 </Project>

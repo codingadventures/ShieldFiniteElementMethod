@@ -1,5 +1,5 @@
 #include "AbstractController.h"
-#include "unistd.h"
+#include "unistd.h" 
 
 namespace Controller
 {
@@ -12,7 +12,7 @@ namespace Controller
 		d_time_at_reset(0.0),
 		d_pause(false),
 		d_fps(0.0f),
-		d_camera(nullptr),
+		//d_camera(nullptr),
 		d_window_name(window_name) 
 	{}
 
@@ -22,26 +22,20 @@ namespace Controller
 		m_clockText = NULL;
 		m_App = state; 
 		m_App->userData = this;
-		m_App->onAppCmd = engine_handle_cmd;
-		m_App->onInputEvent = engine_handle_input;
-		d_camera = new Cam::Camera();
+		m_App->onAppCmd = AbstractController::engine_handle_cmd;
+		m_App->onInputEvent =  AbstractController::engine_handle_input;
+		
+		
+
+		doubletap_detector_.SetConfiguration( m_App->config );
+		drag_detector_.SetConfiguration( m_App->config );
+		pinch_detector_.SetConfiguration( m_App->config );
+
+		d_camera.SetFlip(  1.f, -1.f, -1.f );
+		d_camera.SetPinchTransformFactor( 2.0f, 2.0f, 8.0f );
+		//d_camera = new Cam::Camera();
 	}
-
-	/*void AbstractController::calculateFps( )
-	{
-		static unsigned int frame = 0;
-		static auto time_base = 0;
-
-		frame++;
-
-		auto t = glutGet(GLUT_ELAPSED_TIME);
-		if (t - time_base > 1000) 
-		{
-			d_fps = 0.5f*( d_fps) + 0.5f*(frame*1000.0f/static_cast<float>(t - time_base));
-			time_base = t;		
-			frame = 0;
-		}
-	}*/
+	 
 
 	int AbstractController::initEGL()
 	{
@@ -133,8 +127,8 @@ namespace Controller
 		this->m_display = display;
 		this->m_context = context;
 		this->m_surface = surface;
-		this->m_screenWidth = VIEWPORT_WIDTH;
-		this->m_screenHeight = VIEWPORT_HEIGHT;
+		this->m_screenWidth = w;
+		this->m_screenHeight = h;
 		 
 		// Initialize GL state.
 		//glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
@@ -264,6 +258,14 @@ namespace Controller
 	}
 
 
+	void AbstractController::TransformPosition(glm::vec2& v)
+	{ 
+			v = glm::vec2( 2.0f, 2.0f ) * v
+				/ glm::vec2( m_screenWidth, m_screenHeight )
+				- glm::vec2( 1.f, 1.f );
+		 
+	}
+
 	void AbstractController::printGLContextInfo()
 	{
 
@@ -351,14 +353,14 @@ namespace Controller
 			}
 			sdkStopTimer(&m_timer.m_timer);
 			fps = m_timer.computeFPS();
-			LOGI("FPS: %f\n",fps);
+			//LOGI("FPS: %f\n",fps);
 			//sdkStartTimer(&m_timer.m_timer);
 
 		}
 
 	}
 
-	void engine_handle_cmd(struct android_app* app, int32_t cmd)
+	void AbstractController::engine_handle_cmd(struct android_app* app, int32_t cmd)
 	{
 		AbstractController* engine = (AbstractController*)app->userData;
 		switch (cmd) {
@@ -422,7 +424,7 @@ namespace Controller
 
 	}
 
-	int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
+	/*int32_t engine_handle_input(struct android_app* app, AInputEvent* event)
 	{
 		AbstractController* engine = (AbstractController*)app->userData;
 		if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
@@ -439,6 +441,77 @@ namespace Controller
 			{
 				engine->m_screenPressed = false;
 				engine->m_screenReleased = true;
+			}
+			return 1;
+		}
+		return 0;
+	}*/
+
+	int32_t AbstractController::engine_handle_input(struct android_app* app, AInputEvent* event)
+	{
+		AbstractController* eng = (AbstractController*) app->userData;
+		if( AInputEvent_getType( event ) == AINPUT_EVENT_TYPE_MOTION )
+		{
+			ndk_helper::GESTURE_STATE doubleTapState = eng->doubletap_detector_.Detect( event );
+			ndk_helper::GESTURE_STATE dragState = eng->drag_detector_.Detect( event );
+			ndk_helper::GESTURE_STATE pinchState = eng->pinch_detector_.Detect( event );
+
+
+			auto&  cam = eng->GetCamera();
+
+			//Double tap detector has a priority over other detectors
+			if( doubleTapState == ndk_helper::GESTURE_STATE_ACTION )
+			{
+				//Detect double tap
+				
+				
+				cam.Reset( true );
+			}
+			else
+			{
+				//Handle drag state
+				if( dragState & ndk_helper::GESTURE_STATE_START )
+				{
+					//Otherwise, start dragging
+					glm::vec2 v;
+					eng->drag_detector_.GetPointer( v );
+					eng->TransformPosition( v );
+					cam.BeginDrag( v );
+				}
+				else if( dragState & ndk_helper::GESTURE_STATE_MOVE )
+				{
+					glm::vec2 v;
+					eng->drag_detector_.GetPointer( v );
+					eng->TransformPosition( v );
+					cam.Drag( v );
+				}
+				else if( dragState & ndk_helper::GESTURE_STATE_END )
+				{
+					cam.EndDrag();
+				}
+
+				//Handle pinch state
+				if( pinchState & ndk_helper::GESTURE_STATE_START )
+				{
+					//Start new pinch
+					glm::vec2 v1;
+					glm::vec2 v2;
+					eng->pinch_detector_.GetPointers( v1, v2 );
+					eng->TransformPosition( v1 );
+					eng->TransformPosition( v2 );
+					cam.BeginPinch( v1, v2 );
+				}
+				else if( pinchState & ndk_helper::GESTURE_STATE_MOVE )
+				{
+					//Multi touch
+					//Start new pinch
+					glm::vec2 v1;
+					glm::vec2 v2;
+					eng->pinch_detector_.GetPointers( v1, v2 );
+					eng->TransformPosition( v1 );
+					eng->TransformPosition( v2 );
+					cam.Pinch( v1, v2 );
+				}
 			}
 			return 1;
 		}
@@ -461,7 +534,7 @@ namespace Controller
 
 	AbstractController::~AbstractController()
 	{
-		delete d_camera;
+		//delete d_camera;
 	}
 
 }

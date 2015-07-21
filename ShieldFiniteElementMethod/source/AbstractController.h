@@ -7,6 +7,8 @@
 #include "Camera.h" 
 #include <cudaHelper/helper_timer.h>
 #include "Timer.h"
+#include "tapCamera.h"
+#include "gestureDetector.h"
 
 namespace Controller
 {
@@ -21,7 +23,7 @@ namespace Controller
 	};
 
 	//using namespace placeholders;
-	namespace Cam = Camera;
+	//namespace Cam = Camera;
 
 	class AbstractController
 	{
@@ -43,6 +45,12 @@ namespace Controller
 		GLbitfield m_clearMask;
 		int m_screenWidth, m_screenHeight;
 		float m_aspectRatio;
+
+		ndk_helper::DoubletapDetector doubletap_detector_;
+		ndk_helper::PinchDetector pinch_detector_;
+		ndk_helper::DragDetector drag_detector_;
+		ndk_helper::PerfMonitor monitor_;
+
 		Timer				m_timer;
 	protected: 
 		double				d_delta_time; 
@@ -54,8 +62,8 @@ namespace Controller
 		glm::mat4			d_projection_matrix;
 		glm::mat4 			d_view_matrix;
 		float				d_fps;
-
-		Cam::Camera*		d_camera;						//Freed in destructor
+		ndk_helper::TapCamera			d_camera;
+		//Cam::Camera*		d_camera;						//Freed in destructor
 		std::string				d_window_name;
 
 	public:
@@ -71,6 +79,9 @@ namespace Controller
 		/*	virtual void mainLoop();
 		virtual void handleInput();*/
 
+		 ndk_helper::TapCamera& GetCamera() {
+			return d_camera;
+		}
 
 		/**
 		* Tear down the EGL context currently associated with the display.
@@ -80,21 +91,24 @@ namespace Controller
 		void printGLContextInfo();
 		void setAssetManager();
 
+		static int32_t engine_handle_input(struct android_app* app, AInputEvent* event);
+		static void engine_handle_cmd(struct android_app* app, int32_t cmd);	  
+		void TransformPosition(glm::vec2& v);
 	/*	void updateTimer( );
 		void calculateFps( );*/
 	};
 
 
 
-	/**
-	* Process the next input event.
-	*/
-	static int32_t engine_handle_input(struct android_app* app, AInputEvent* event);
+	///**
+	//* Process the next input event.
+	//*/
+	//static 
 
-	/**
-	* Process the next main command.
-	*/
-	static void engine_handle_cmd(struct android_app* app, int32_t cmd);	  
+	///**
+	//* Process the next main command.
+	//*/
+	//static 
 }
 
 

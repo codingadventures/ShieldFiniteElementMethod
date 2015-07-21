@@ -1,5 +1,6 @@
 #version 310 es
 precision highp float;
+precision highp sampler2D;
  
 vec3 calculate_diffuse_component_material_texture(vec3 normal, vec3 light_direction, vec2 tex_coord);
 

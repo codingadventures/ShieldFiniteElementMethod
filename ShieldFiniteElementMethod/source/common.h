@@ -31,17 +31,17 @@
 #include <sofa/defaulttype/Vec.h>
 #include <sofa/defaulttype/Mat.h>
 #include <sofa/helper/vector.h>
-
+ 
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "com.shield.fem", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "com.shield.fem", __VA_ARGS__))
 #define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,"com.shield.fem", __VA_ARGS__)
 
-
-#define VIEWPORT_WIDTH 1280
-#define VIEWPORT_HEIGHT 1024
+//
+//#define VIEWPORT_WIDTH 1280
+//#define VIEWPORT_HEIGHT 1024
 #define INVALID_UNIFORM_LOCATION 0xffffffff
-#define VIEWPORT_RATIO (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT
+//#define VIEWPORT_RATIO (float)VIEWPORT_WIDTH/(float)VIEWPORT_HEIGHT
 #define TOTAL_ENEMIES 5
 #define INITIAL_POINTER_POSITION glm::vec3(50.0f, 50.0f, -5.0f)
 

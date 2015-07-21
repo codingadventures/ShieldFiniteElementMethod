@@ -1,8 +1,7 @@
 #ifndef Texture_h__
 #define Texture_h__
 
-#include <string>
-#include "png.h"
+#include <string> 
 
 enum TextureType{ 
 	TextureType_DIFFUSE,

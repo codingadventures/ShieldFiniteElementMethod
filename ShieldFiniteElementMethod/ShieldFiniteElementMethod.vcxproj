@@ -22,21 +22,24 @@
   <ItemGroup>
     <ClInclude Include="source\AbstractController.h" />
     <ClInclude Include="source\android_native_app_glue.h" />
-    <ClInclude Include="source\Camera.h" />
     <ClInclude Include="source\common.h" />
     <ClInclude Include="source\FemController.h" />
     <ClInclude Include="source\FEMMesh.h" />
+    <ClInclude Include="source\gestureDetector.h" />
     <ClInclude Include="source\GPU.h" />
     <ClInclude Include="source\Helper.h" />
+    <ClInclude Include="source\interpolator.h" />
     <ClInclude Include="source\kernels.h" />
     <ClInclude Include="source\Material.h" />
     <ClInclude Include="source\MecanicalMatrix.h" />
     <ClInclude Include="source\Mesh.h" />
     <ClInclude Include="source\Model.h" />
     <ClInclude Include="source\octree.h" />
+    <ClInclude Include="source\perfMonitor.h" />
     <ClInclude Include="source\Shader.h" />
     <ClInclude Include="source\simulation.h" />
     <ClInclude Include="source\SimulationParameters.h" />
+    <ClInclude Include="source\tapCamera.h" />
     <ClInclude Include="source\Texture.h" />
     <ClInclude Include="source\Timer.h" />
     <ClInclude Include="source\Vertex.h" />
@@ -44,7 +47,6 @@
   <ItemGroup>
     <ClCompile Include="source\AbstractController.cpp" />
     <ClCompile Include="source\android_native_app_glue.c" />
-    <ClCompile Include="source\Camera.cpp" />
     <ClCompile Include="source\cpu\CPUBarycentricMapping.cpp" />
     <ClCompile Include="source\cpu\CPUFixedConstraint.cpp" />
     <ClCompile Include="source\cpu\CPUMechanicalObject.cpp" />
@@ -56,22 +58,23 @@
     <ClCompile Include="source\cpu\CPUVisualModel.cpp" />
     <ClCompile Include="source\FemController.cpp" />
     <ClCompile Include="source\FEMMesh.cpp" />
+    <ClCompile Include="source\gestureDetector.cpp" />
+    <ClCompile Include="source\interpolator.cpp" />
     <ClCompile Include="source\kernels.cpp" />
     <ClCompile Include="source\Material.cpp" />
     <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\Model.cpp" />
+    <ClCompile Include="source\perfMonitor.cpp" />
     <ClCompile Include="source\Shader.cpp" />
     <ClCompile Include="source\ShieldFiniteElementMethod.cpp" />
     <ClCompile Include="source\Simulation.cpp" />
     <ClCompile Include="source\SimulationParameters.cpp" />
+    <ClCompile Include="source\tapCamera.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <JCompile Include="src\com\shield\fem\Loader.java" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="jni\libassimp.so" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F9181440-0794-4248-8CD2-AE3B769D44AA}</ProjectGuid>
@@ -101,32 +104,35 @@
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID_APP;GLEW_NO_GLU;SOFA_DEVICE_CPU</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\3rdparty\glm;$(ProjectDir)\3rdparty\glew;$(ProjectDir)\3rdparty\png;$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\cudaHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\3rdparty\glm;$(ProjectDir)\3rdparty\glew;$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\cudaHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <GccExceptionHandling>true</GccExceptionHandling>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv3;stdc++;png;z;assimp;</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv3;stdc++;soil;assimp</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <AntBuild>
       <NativeLibDirectories>$(ProjectDir)\lib;%(NativeLibDirectories)</NativeLibDirectories>
     </AntBuild>
     <AntBuild>
-      <NativeLibDependencies>libassimp</NativeLibDependencies>
+      <NativeLibDependencies>libassimp;libsoil;</NativeLibDependencies>
     </AntBuild>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID_APP;GLEW_NO_GLU;SOFA_DEVICE_CPU</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\3rdparty\glm;$(ProjectDir)\3rdparty\glew;$(ProjectDir)\3rdparty\png;$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\cudaHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\3rdparty\glm;$(ProjectDir)\3rdparty\glew;$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\cudaHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <GccExceptionHandling>true</GccExceptionHandling>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;EGL;GLESv3;stdc++;png;z;assimp;</AdditionalDependencies>
+      <AdditionalDependencies>android;EGL;GLESv3;stdc++;assimp;soil</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <AntBuild>
       <NativeLibDirectories>$(ProjectDir)\lib;%(NativeLibDirectories)</NativeLibDirectories>
-      <NativeLibDependencies>libassimp</NativeLibDependencies>
+      <NativeLibDependencies>
+      </NativeLibDependencies>
       <SecurePropertiesLocation>C:\Users\Giovanni\Documents\GitHub\ShieldFiniteElementMethod\ShieldFiniteElementMethod\secure_properties.xml</SecurePropertiesLocation>
     </AntBuild>
   </ItemDefinitionGroup>
