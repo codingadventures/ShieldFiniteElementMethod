@@ -7,13 +7,15 @@ namespace Controller
 { 
 	FemController::FemController() : AbstractController("Fem GEM CPU")
 	{
-		d_simulation = new Simulation();
+
 	}
 
 
 	FemController::~FemController()
 	{
+		LOGI("Disposing FEM Controller");
 		delete d_shader;
+		delete d_simulation;
 		//delete d_model;
 	}
 
@@ -37,7 +39,13 @@ namespace Controller
 		return 0;
 	}
 
+	void FemController::Init(android_app *state)
+	{
+		AbstractController::Init(state);
 
+		auto path = std::string(state->activity->internalDataPath);
+		d_simulation = new Simulation(path,0,true);
+	}
 	void FemController::InitParams()
 	{  
 		d_model = new Model(RAPTOR_MODEL);
@@ -87,9 +95,9 @@ namespace Controller
 		d_projection_matrix = glm::perspective(30.0f, m_screenWidth / (m_screenHeight * 1.0f), 0.1f, 1000.0f);  
 
 		//d_camera->MoveCamera();
-		
+
 		d_camera.Update();
-		
+
 		d_view_matrix = d_camera.GetViewMatrix(); 
 
 

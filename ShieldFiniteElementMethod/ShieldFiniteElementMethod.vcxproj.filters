@@ -61,6 +61,9 @@
     <Filter Include="src\JavaLoader">
       <UniqueIdentifier>{d220f535-999f-4e27-8b2e-5a7301aba5d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CUDA">
+      <UniqueIdentifier>{9ba071d3-26e1-4767-a9cc-84319b62bbb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="res\values\strings.xml">
@@ -138,6 +141,27 @@
     <ClInclude Include="source\perfMonitor.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="source\cuda\CudaCommon.h">
+      <Filter>src\CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cuda\CudaMath.h">
+      <Filter>src\CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cuda\CudaMemoryManager.h">
+      <Filter>src\CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cuda\CudaTexture.h">
+      <Filter>src\CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cuda\gpucuda.h">
+      <Filter>src\CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cuda\mycuda.h">
+      <Filter>src\CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ChronoTimer.h">
+      <Filter>Headers\Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ShieldFiniteElementMethod.cpp" />
@@ -171,6 +195,30 @@
     <ClCompile Include="source\Material.cpp">
       <Filter>src\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="source\SimulationParameters.cpp">
+      <Filter>src\Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\kernels.cpp">
+      <Filter>src\Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FEMMesh.cpp">
+      <Filter>src\Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gestureDetector.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\interpolator.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tapCamera.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\perfMonitor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ChronoTimer.cpp">
+      <Filter>src\Timer</Filter>
+    </ClCompile>
     <ClCompile Include="source\cpu\CPUBarycentricMapping.cpp">
       <Filter>src\CPU</Filter>
     </ClCompile>
@@ -197,27 +245,6 @@
     </ClCompile>
     <ClCompile Include="source\cpu\CPUVisualModel.cpp">
       <Filter>src\CPU</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SimulationParameters.cpp">
-      <Filter>src\Simulation</Filter>
-    </ClCompile>
-    <ClCompile Include="source\kernels.cpp">
-      <Filter>src\Simulation</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FEMMesh.cpp">
-      <Filter>src\Simulation</Filter>
-    </ClCompile>
-    <ClCompile Include="source\gestureDetector.cpp">
-      <Filter>src\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="source\interpolator.cpp">
-      <Filter>src\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="source\tapCamera.cpp">
-      <Filter>src\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="source\perfMonitor.cpp">
-      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

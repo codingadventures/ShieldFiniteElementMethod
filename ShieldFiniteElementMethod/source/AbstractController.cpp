@@ -31,8 +31,8 @@ namespace Controller
 		drag_detector_.SetConfiguration( m_App->config );
 		pinch_detector_.SetConfiguration( m_App->config );
 
-		d_camera.SetFlip(  1.f, -1.f, -1.f );
-		d_camera.SetPinchTransformFactor( 2.0f, 2.0f, 8.0f );
+		d_camera.SetFlip(  1.f,  -1.f,  1.f );
+		d_camera.SetPinchTransformFactor( .20f, .20f, .80f );
 		//d_camera = new Cam::Camera();
 	}
 	 
@@ -352,8 +352,8 @@ namespace Controller
 
 			}
 			sdkStopTimer(&m_timer.m_timer);
-			fps = m_timer.computeFPS();
-			//LOGI("FPS: %f\n",fps);
+			//fps = m_timer.computeFPS();
+			 
 			//sdkStartTimer(&m_timer.m_timer);
 
 		}
@@ -409,6 +409,9 @@ namespace Controller
 		case APP_CMD_START:
 
 			break;
+		case APP_CMD_DESTROY:
+			delete engine;
+			break;
 		case APP_CMD_INPUT_CHANGED:
 		case APP_CMD_WINDOW_RESIZED:
 		case APP_CMD_WINDOW_REDRAW_NEEDED:
@@ -418,8 +421,7 @@ namespace Controller
 		case APP_CMD_RESUME:
 		case APP_CMD_PAUSE:
 		case APP_CMD_STOP:
-		case APP_CMD_DESTROY:
-			break;
+		break;
 		}
 
 	}
@@ -517,20 +519,7 @@ namespace Controller
 		}
 		return 0;
 	}
-
-	//inline void AbstractController::updateTimer( )
-	//{
-	//	auto time_since_start = glutGet(GLUT_ELAPSED_TIME) - d_time_at_reset;
-	//	d_delta_time = time_since_start - d_old_time_since_start;
-	//	d_delta_time_secs = d_delta_time / 1000.0f;
-	//	if (d_pause)
-	//		d_time_at_reset+=d_delta_time; // this increments the initial load time
-	//	else
-	//	{	
-	//		d_old_time_since_start = time_since_start;
-	//		d_global_clock += d_delta_time_secs;
-	//	}
-	//}
+	 
 
 	AbstractController::~AbstractController()
 	{

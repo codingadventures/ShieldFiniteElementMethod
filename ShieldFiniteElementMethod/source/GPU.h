@@ -14,7 +14,7 @@
 #endif
 
 #if defined(SOFA_DEVICE_CUDA)
-#include <cuda/CudaMemoryManager.h>
+#include "cuda/CudaMemoryManager.h"
 using namespace sofa::gpu::cuda;
 #define MyMemoryManager sofa::gpu::cuda::CudaMemoryManager
 #else

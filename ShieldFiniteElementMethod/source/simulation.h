@@ -9,10 +9,13 @@
 #include <mesh/read_mesh_netgen.h> 
 #include "Mesh.h"
 #include "GPU.h"
-
-
+#include <iostream>
+#include <iomanip>
+#include "ChronoTimer.h"
+#include <string>
 class Simulation
 {
+	
 public:
 	bool simulation_preload();
 	bool simulation_load_fem_mesh(const char* filename);
@@ -36,11 +39,20 @@ public:
 	void simulation_load();
 
 	FEMMesh* fem_mesh;
+	ChronoTimer *timer;
 	SimulationParameters simulation_params;
 	//std::vector<SurfaceMesh*> render_meshes;
 	std::vector<Rendering::Mesh>* d_meshes;
 	int d_verbose;
-	Simulation(int verbose = 0);
+	bool d_profile;
+
+	int simulation_cg_iter;
+	Simulation( std::string& path, int verbose = 0, bool profile = false);
+	~Simulation();
+	std::ofstream d_mapping_time_o;
+	std::ofstream d_compute_force_time_o;
+	std::ofstream d_conjugate_gradient_time_o;
+	std::ofstream d_cgiteration_counts_o;
 
 	void SetMeshes(std::vector<Rendering::Mesh>* meshes);
 };

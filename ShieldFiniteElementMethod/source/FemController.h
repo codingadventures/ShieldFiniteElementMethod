@@ -13,6 +13,8 @@ namespace Controller
 	public: 
 		virtual void InitParams() override; 
 		virtual void Draw();  
+		virtual void Init(android_app *state) override;
+
 		FemController();
 		~FemController();
 	private:

@@ -5,7 +5,7 @@
 #include <sofa/defaulttype/Mat.h>
 #include <sofa/helper/vector.h>
 
-#include "GPU.h" 
+#include "GPU.h"  
 #ifdef SOFA_DEVICE_CPU
 #ifdef _MSC_VER
 #include <intrin.h>

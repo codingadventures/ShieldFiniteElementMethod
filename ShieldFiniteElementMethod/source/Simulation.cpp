@@ -1,11 +1,44 @@
 #include "simulation.h"
 
-using namespace Rendering;
-Simulation::Simulation(int verbose) :d_verbose(verbose)
-{
 
+using namespace Rendering;
+
+#define START_PROFILING(isProfiling) if (isProfiling) \
+	timer->Start()
+
+#define STOP_PROFILING(isProfiling) if (isProfiling) \
+	timer->Stop()
+
+#define SET_TIME_ELAPSED(isProfiling, profiler)	if (isProfiling) \
+	profiler << std::fixed << std::setprecision(8) << timer->ElapsedTime() << ",";
+
+Simulation::Simulation(std::string& path, int verbose, bool profile) : d_verbose(verbose), d_profile(profile), simulation_cg_iter(0)
+{
+	if (profile)
+	{
+		LOGI(path.c_str());
+		d_mapping_time_o.open (path + "/SimulationMapping.csv");
+		d_compute_force_time_o.open (path + "/ComputeForce.csv");
+		d_conjugate_gradient_time_o.open(path + "/ConjugateGradient.csv");
+		
+		if (!d_mapping_time_o.is_open())
+		{
+			LOGE("Error opening the file...");
+		}
+		timer = new ChronoTimer();
+	}
 }
 
+Simulation::~Simulation()
+{
+	if (d_profile)
+	{
+		d_mapping_time_o.close();
+		d_compute_force_time_o.close();
+		d_conjugate_gradient_time_o.close(); 
+		delete timer;
+	}
+}
 void Simulation::SetMeshes(vector<Mesh>* meshes)
 {
 	d_meshes = meshes;
@@ -112,12 +145,20 @@ void Simulation::simulation_mapping()
 	simulation_params.simulation_mapping_needed = false;
 	FEMMesh* mesh = fem_mesh;
 	if (!mesh) return;
+
+	START_PROFILING(d_profile);
+
+
 	for (unsigned int i = 0; i < d_meshes->size(); ++i)
 	{
 		(*d_meshes)[i].updatePositions(mesh);
 		//meshes[i]->updateNormals();
-
 	}
+
+	STOP_PROFILING(d_profile);
+
+	SET_TIME_ELAPSED(d_profile, d_mapping_time_o);
+
 }
 //
 void Simulation::simulation_animate()
@@ -149,19 +190,32 @@ void Simulation::timeIntegrator_EulerImplicit(const SimulationParameters* params
 	const double rM = params->rayleighMass;
 	const double rK = params->rayleighStiffness;
 
+	START_PROFILING(d_profile);
+
 	// Compute right-hand term b
 	TVecDeriv& b = mesh->b;
 	computeForce(params, mesh, b);
 	// no need to apply constraints as it will be done in addKv()
 	addKv(params, mesh, h);
+	STOP_PROFILING(d_profile);
+
+	SET_TIME_ELAPSED(d_profile, d_compute_force_time_o);
+
 
 	// Compute matrix
 	MechanicalMatrix systemMatrix;
 	systemMatrix.mFactor = 1 - h*rM;
 	systemMatrix.kFactor =   - h*rK - h*h;
-
+	START_PROFILING(d_profile);
 	// Solve system for a
 	linearSolver_ConjugateGradient(params, mesh, systemMatrix);
+	STOP_PROFILING(d_profile);
+
+	d_cgiteration_counts_o << simulation_cg_iter << ",";
+
+	SET_TIME_ELAPSED(d_profile, d_conjugate_gradient_time_o);
+
+
 
 	// Apply solution:  v = v + h a        x = x + h v
 	TVecCoord& x = mesh->positions;
@@ -173,6 +227,8 @@ void Simulation::timeIntegrator_EulerImplicit(const SimulationParameters* params
 	DEVICE_METHOD(MechanicalObject3f_vPEqBF)( x.size(), v.deviceWrite(), a.deviceRead(), (TReal)h );
 	DEVICE_METHOD(MechanicalObject3f_vPEqBF)( x.size(), x.deviceWrite(), v.deviceRead(), (TReal)h );
 #endif
+
+
 
 }
 

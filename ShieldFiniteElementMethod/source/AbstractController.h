@@ -70,7 +70,7 @@ namespace Controller
 		explicit AbstractController(std::string window_name);
 		virtual ~AbstractController();
 
-		void Init(android_app *state);
+		virtual void Init(android_app *state);
 		virtual void Run();
 		virtual void Draw() = 0;
 		virtual void InitParams() = 0;

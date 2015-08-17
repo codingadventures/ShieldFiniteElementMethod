@@ -1,5 +1,5 @@
 #include "FEMMesh.h"
-
+#include "kernels.h"
 
 void FEMMesh::reorder()
 {
