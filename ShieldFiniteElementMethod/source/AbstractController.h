@@ -59,6 +59,7 @@ namespace Controller
 		double				d_global_clock;
 		double				d_time_at_reset;
 		bool				d_pause;
+		int					d_frame_count;
 		glm::mat4			d_projection_matrix;
 		glm::mat4 			d_view_matrix;
 		float				d_fps;

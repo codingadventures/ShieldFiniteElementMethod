@@ -26,12 +26,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/spline.hpp>
- 
+
 //SOFA
 #include <sofa/defaulttype/Vec.h>
 #include <sofa/defaulttype/Mat.h>
 #include <sofa/helper/vector.h>
- 
+
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "com.shield.fem", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "com.shield.fem", __VA_ARGS__))
@@ -51,6 +51,7 @@
 #pragma region [ MODELS ]
 
 #define RAPTOR_MODEL "raptor.obj"
+#define FLOOR_MODEL "floor.obj"
 #define RAPTOR_NETGEN_MESH "raptor-8418.mesh"
 #define RAPTOR_NETGEN_MESH_FULL "raptor-12580.mesh"
 
@@ -59,7 +60,7 @@
 namespace Common{
 
 
-	
+
 
 	enum GameState
 	{
@@ -75,14 +76,14 @@ namespace Common{
 	//bool g_rightMouseButtonIsPressed;
 
 }
- 
-
- 
 
 
 
 
 
 
- 
+
+
+
+
 #endif // common_h__

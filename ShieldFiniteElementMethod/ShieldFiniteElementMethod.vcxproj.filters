@@ -162,6 +162,9 @@
     <ClInclude Include="source\ChronoTimer.h">
       <Filter>Headers\Timer</Filter>
     </ClInclude>
+    <ClInclude Include="source\Line.h">
+      <Filter>Headers\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ShieldFiniteElementMethod.cpp" />
@@ -245,6 +248,9 @@
     </ClCompile>
     <ClCompile Include="source\cpu\CPUVisualModel.cpp">
       <Filter>src\CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Line.cpp">
+      <Filter>src\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

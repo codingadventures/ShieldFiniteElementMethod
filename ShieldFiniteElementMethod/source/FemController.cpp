@@ -1,5 +1,6 @@
 #include "FemController.h"
 #include "common.h"
+#include "Line.h"
 
 using namespace Rendering;
 
@@ -53,6 +54,12 @@ namespace Controller
 		vector<Mesh>* meshes = d_model->GetMeshes( );
 
 		d_simulation->SetMeshes(meshes);
+
+		d_floor	    = new Model(FLOOR_MODEL);
+		d_floor->Translate(glm::vec3(0.0f,0.4f,0.0f));
+		 
+		
+
 		if (!d_simulation->simulation_preload())
 		{
 			LOGE("Error starting the simulation...");
@@ -72,11 +79,10 @@ namespace Controller
 		f_shader.push_back("common.frag");
 		d_shader = new Shader(v_shader,f_shader);
 
-		glEnable( GL_CULL_FACE );
-		glEnable( GL_DEPTH_TEST );
-		glDepthFunc( GL_LEQUAL );
+	 
+		glEnable( GL_DEPTH_TEST ); 
 
-		//d_model->Rotate(glm::vec3(0,1,0),glm::radians(180.0f));
+	 
 		d_model->Rotate(glm::vec3(0,0,1),glm::radians(180.0f));
 	}
 
@@ -112,7 +118,36 @@ namespace Controller
 
 		d_model->Draw(*d_shader);
 
-		//glutSwapBuffers();
+		if (d_frame_count % 200 ==0 )
+		{
+			float x = rand() % 100 - 200;
+			float y = rand() % 100 - 200;
+			float z = rand() % 100 - 200;
+ 			d_simulation->fem_mesh->setPushRandomForce(TDeriv(x,y,z));
+			//cout << "FPS: " << d_fps << endl;
+		}
+		if (d_simulation->fem_mesh->externalForce.index != -1)
+		{
+			TCoord p1 = d_simulation->fem_mesh->positions[d_simulation->fem_mesh->externalForce.index];
+			TCoord p2 = p1 + d_simulation->fem_mesh->externalForce.value * 0.001;
+			auto v1 = Vertex(glm::vec3(p1.x(),p1.y(),p1.z()), glm::vec4(1,0,0,0));
+			auto v2 = Vertex(glm::vec3(p2.x(),p2.y(),p2.z()), glm::vec4(1,0,0,0));
+
+			Line l(v1,v2);
+			glLineWidth(3);
+			l.Draw();
+			glLineWidth(1);
+		}
+
+		d_shader->Use();
+		d_shader->SetUniform("mvp", projection_view * d_floor->GetModelMatrix());
+		d_shader->SetUniform("mv",   d_view_matrix * d_floor->GetModelMatrix());
+		d_shader->SetUniform("model_matrix", d_floor->GetModelMatrix());
+		d_shader->SetUniform("model_transpose_inverse",  glm::transpose(glm::inverse(d_floor->GetModelMatrix())));  
+		d_floor->Draw(*d_shader);
+
+		if (d_frame_count >= 1500)
+			ANativeActivity_finish(m_App->activity);
 	}
 
 

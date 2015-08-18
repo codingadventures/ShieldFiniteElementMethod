@@ -26,6 +26,7 @@ namespace Controller
 
 		Shaders::Shader*			d_shader;
 		Rendering::Model*			d_model;
+		Rendering::Model*			d_floor;
 		Simulation*					d_simulation;
 
 	};

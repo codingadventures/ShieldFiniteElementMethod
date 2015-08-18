@@ -349,6 +349,7 @@ namespace Controller
 				glClear(m_clearMask);
 				Draw();
 				eglSwapBuffers(m_display, m_surface);
+				d_frame_count++;
 
 			}
 			sdkStopTimer(&m_timer.m_timer);

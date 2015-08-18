@@ -37,6 +37,7 @@
     <ClInclude Include="source\Helper.h" />
     <ClInclude Include="source\interpolator.h" />
     <ClInclude Include="source\kernels.h" />
+    <ClInclude Include="source\Line.h" />
     <ClInclude Include="source\Material.h" />
     <ClInclude Include="source\MecanicalMatrix.h" />
     <ClInclude Include="source\Mesh.h" />
@@ -69,6 +70,7 @@
     <ClCompile Include="source\gestureDetector.cpp" />
     <ClCompile Include="source\interpolator.cpp" />
     <ClCompile Include="source\kernels.cpp" />
+    <ClCompile Include="source\Line.cpp" />
     <ClCompile Include="source\Material.cpp" />
     <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\Model.cpp" />
@@ -130,7 +132,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID_APP;GLEW_NO_GLU;SOFA_DEVICE_CPU</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID_APP;GLEW_NO_GLU;SOFA_DEVICE_CUDA</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)\3rdparty\glm;$(ProjectDir)\3rdparty\glew;$(ProjectDir)\3rdparty;$(ProjectDir)\3rdparty\cudaHelper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <GccExceptionHandling>true</GccExceptionHandling>
       <OmitFramePointer>false</OmitFramePointer>

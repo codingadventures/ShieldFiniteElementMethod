@@ -33,12 +33,26 @@ Simulation::~Simulation()
 {
 	if (d_profile)
 	{
+		cancelLastComma(d_mapping_time_o);
+		cancelLastComma(d_compute_force_time_o);
+		cancelLastComma(d_conjugate_gradient_time_o);
+
 		d_mapping_time_o.close();
 		d_compute_force_time_o.close();
 		d_conjugate_gradient_time_o.close(); 
 		delete timer;
 	}
 }
+
+
+void Simulation::cancelLastComma(std::ofstream& stream)
+{
+	long pos = stream.tellp();
+	stream.seekp(pos - 1);
+
+	stream << " ";
+}
+
 void Simulation::SetMeshes(vector<Mesh>* meshes)
 {
 	d_meshes = meshes;

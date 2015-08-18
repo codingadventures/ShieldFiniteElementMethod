@@ -352,6 +352,11 @@ bool FEMMesh::load(const std::string& filename)
 	return true;
 }
 
+void FEMMesh::setPushRandomForce(TDeriv pushForce)
+{
+	externalForce.index = rand() % positions0.size();
+	externalForce.value = pushForce * d_simulationSize;
+}
 
 void FEMMesh::saveObj(const std::string& filename, const std::string& mtlfilename)
 {
@@ -435,4 +440,5 @@ void FEMMesh::saveObj(const std::string& filename, const std::string& mtlfilenam
 	}
 	write_mesh_obj(filename.c_str(), mtlfile.c_str(), points, triangles, (const TVecTexCoord*)NULL, &groups, &mats, &smooth);
 }
+
 

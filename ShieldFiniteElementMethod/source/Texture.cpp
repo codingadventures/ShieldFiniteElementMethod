@@ -49,7 +49,7 @@ bool Texture::Load(std::string directory)
 		(m_file_name.c_str()
 		,
 		&width, &height, &channels,
-		SOIL_LOAD_RGBA
+		SOIL_LOAD_RGB
 		);
 
 
@@ -59,14 +59,23 @@ bool Texture::Load(std::string directory)
 	// Assign texture to ID
 	glBindTexture(GL_TEXTURE_2D, id);
 	// Parameters
-	/*glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );  */
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT ); /* */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
 	/*glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
 	glGenerateMipmap(GL_TEXTURE_2D); */
-
-	glTexImage2D(GL_TEXTURE_2D,  0, GL_RGBA , width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ht_map );
+	GLuint format;
+	switch (channels)
+	{
+	case 3:
+		format = GL_RGB; 
+		break;
+	case 4:
+		format = GL_RGBA;
+		break;
+	}
+	glTexImage2D(GL_TEXTURE_2D,  0, GL_RGB , width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, ht_map );
 
 	SOIL_free_image_data( ht_map );
 

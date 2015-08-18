@@ -49,6 +49,7 @@ public:
 	int simulation_cg_iter;
 	Simulation( std::string& path, int verbose = 0, bool profile = false);
 	~Simulation();
+	void cancelLastComma(std::ofstream& stream);
 	std::ofstream d_mapping_time_o;
 	std::ofstream d_compute_force_time_o;
 	std::ofstream d_conjugate_gradient_time_o;

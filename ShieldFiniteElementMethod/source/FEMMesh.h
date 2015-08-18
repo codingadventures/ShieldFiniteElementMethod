@@ -81,6 +81,7 @@ struct FEMMesh
 	bool save(const std::string& filename);
 	bool load(const std::string& filename);
 
+	void setPushRandomForce(TDeriv pushForce);
 	TReal tetraYoungModulus(int index, SimulationParameters* params)
 	{
 		const TReal youngModulusTop = (TReal)params->youngModulusTop;
